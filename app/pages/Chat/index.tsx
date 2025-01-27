@@ -6,9 +6,9 @@ import { aesEncrypt, aesDecrypt } from '../../algorithms/aes-encrypt';
 import { caesarCipher, caesarDecipher } from '../../algorithms/caesar_cipher'; 
 import { columnarEncrypt, columnarDecrypt } from '../../algorithms/columnar_transposition'; 
 import { desEncrypt, desDecrypt } from '../../algorithms/des'; 
-import { generateDiffieHellmanKeys } from '../../algorithms/diffie_hellman'; 
-import { dsaSignMessage, dsaVerifyMessage } from '../../algorithms/dsa'; 
-import { encryptWithPublicKey, decryptWithPrivateKey } from '../../algorithms/ecc'; 
+// import { generateDiffieHellmanKeys } from '../../algorithms/diffie_hellman'; 
+// import { dsaSignMessage, dsaVerifyMessage } from '../../algorithms/dsa'; 
+// import { encryptWithPublicKey, decryptWithPrivateKey } from '../../algorithms/ecc'; 
 import { sha256Hash } from '../../algorithms/hash_SHA'; 
 import { hillCipherEncrypt, hillCipherDecrypt } from '../../algorithms/hill'; 
 import { monoalphabeticCipher, monoalphabeticDecrypt } from '../../algorithms/monoalphabetic'; 
@@ -17,7 +17,7 @@ import { playfairEncrypt, playfairDecrypt } from '../../algorithms/playfair';
 import { polyalphabeticCipherEncrypt, polyalphabeticCipherDecrypt } from '../../algorithms/polyalphabetic'; 
 import { railFenceEncrypt, railFenceDecrypt } from '../../algorithms/rail_fence'; 
 import { rc4Encrypt, rc4Decrypt } from '../../algorithms/rc4'; 
-import { rsaEncrypt, rsaDecrypt } from '../../algorithms/rsa'; 
+// import { rsaEncrypt, rsaDecrypt } from '../../algorithms/rsa'; 
 
 import { ToastContainer, toast } from 'react-toastify';
 
@@ -43,7 +43,8 @@ const ChatApp = () => {
 
   const chatEndRef = useRef<HTMLDivElement | null>(null);
 
-  const [imagePreview, setImagePreview] = useState(null);
+  const [imagePreview, setImagePreview] = useState<HTMLDivElement | string>("");
+
 
   // Function to get the corresponding encryption or decryption function based on selected option
   const getEncryptionFunction = (option: string, message: string, isEncrypt: boolean) => {
@@ -59,7 +60,7 @@ const ChatApp = () => {
       case 'sha256Hash':
         return sha256Hash(message);
       case 'hillCipherEncrypt':
-        return isEncrypt ? hillCipherEncrypt(message, [[6, 24], [1, 18]]) : hillCipherDecrypt(message, [[6, 24], [1, 18]]);
+        return isEncrypt ? hillCipherEncrypt(message, [[7, 2], [17, 25]]) : hillCipherDecrypt(message, [[7, 2], [17, 25]]);
       case 'monoalphabeticCipher':
         return isEncrypt ? monoalphabeticCipher(message, 'KEY') : monoalphabeticDecrypt(message, 'KEY');
       case 'otpEncrypt':
@@ -130,12 +131,12 @@ const ChatApp = () => {
 
   
     // Function to handle file input change
-    const handleFileChange = (event:any) => {
+    const handleFileChange = (event: any ) => {
       const file = event.target.files[0];
       if (file) {
-        const reader:any = new FileReader();
+        const reader = new FileReader();
         reader.onloadend = () => {
-          setImagePreview(reader.result); // Store the image data URL
+          setImagePreview(reader.result as string || ""); // Store the image data URL
         };
         reader.readAsDataURL(file); // Convert the file to a data URL
       }
@@ -184,6 +185,7 @@ const ChatApp = () => {
                 className="form-control hidden"
                 type="file"
                 id="file-upload"
+                onChange={handleFileChange}
               />
               <label htmlFor="file-upload" className="cursor-pointer">
                 <MdAttachFile size={25} />

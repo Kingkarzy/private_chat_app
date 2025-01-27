@@ -13,12 +13,12 @@ export function hillCipherEncrypt(text: string, keyMatrix: number[][]): string {
 
     let result = '';
     for (let i = 0; i < text.length; i += 2) {
-        let a = alphabet.indexOf(text[i]);
-        let b = alphabet.indexOf(text[i + 1]);
+        const a = alphabet.indexOf(text[i]);
+        const b = alphabet.indexOf(text[i + 1]);
 
         // Matrix multiplication (mod 26)
-        let x = (keyMatrix[0][0] * a + keyMatrix[0][1] * b) % 26;
-        let y = (keyMatrix[1][0] * a + keyMatrix[1][1] * b) % 26;
+        const x = (keyMatrix[0][0] * a + keyMatrix[0][1] * b) % 26;
+        const y = (keyMatrix[1][0] * a + keyMatrix[1][1] * b) % 26;
         
         result += alphabet[x] + alphabet[y];
     }
@@ -60,12 +60,12 @@ export function hillCipherDecrypt(ciphertext: string, keyMatrix: number[][]): st
     // Decrypting the message using the inverse keyMatrix
     let result = '';
     for (let i = 0; i < ciphertext.length; i += 2) {
-        let a = alphabet.indexOf(ciphertext[i]);
-        let b = alphabet.indexOf(ciphertext[i + 1]);
+        const a = alphabet.indexOf(ciphertext[i]);
+        const b = alphabet.indexOf(ciphertext[i + 1]);
 
         // Matrix multiplication (mod 26)
-        let x = (inverseMatrix[0][0] * a + inverseMatrix[0][1] * b) % 26;
-        let y = (inverseMatrix[1][0] * a + inverseMatrix[1][1] * b) % 26;
+        const x = (inverseMatrix[0][0] * a + inverseMatrix[0][1] * b) % 26;
+        const y = (inverseMatrix[1][0] * a + inverseMatrix[1][1] * b) % 26;
 
         result += alphabet[x] + alphabet[y];
     }
@@ -73,11 +73,11 @@ export function hillCipherDecrypt(ciphertext: string, keyMatrix: number[][]): st
 }
 
 // Example Usage
-const text = "HELLO";
-const keyMatrix = [
-    [6, 24],  // Example matrix for encryption
-    [1, 16]
-];
+// const text = "HELLO";
+// const keyMatrix = [
+//     [6, 24],  // Example matrix for encryption
+//     [1, 16]
+// ];
 
 // Encrypt the plaintext
 // const encryptedText = hillCipherEncrypt(text, keyMatrix);
