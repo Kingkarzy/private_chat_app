@@ -1,9 +1,22 @@
-import ChatPage from "./pages/Chat/index";
+"use client"
 
 export default function Home() {
+  const handleClick = () => {
+    window.location.href = "/home";
+  };
   return (
-    <div className="grid grid-rows-[20px_1fr_20px] min-h-screen font-[family-name:var(--font-geist-sans)]">
-      <ChatPage />
+    <>
+    <div>
+      <div className="flex justify-center items-center h-screen">
+        <div className="flex flex-col items-center">
+          <h1 className="text-4xl font-bold text-center">Private Chat App</h1>
+          <button className="py-2 px-4 bg-blue-500 text-white rounded-md hover:bg-blue-600
+          mt-4" onClick={handleClick} >
+            Start Chatting
+          </button>
+        </div>
+      </div>
     </div>
+    </>
   );
 }

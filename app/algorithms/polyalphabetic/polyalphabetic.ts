@@ -4,9 +4,9 @@
  * 
  */
 
-export function polyalphabeticCipherEncrypt(text: string, key: string): string {
+export function polyalphabeticCipherEncrypt(text: string): string {
     const alphabet = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ';
-    key = key.toUpperCase();
+    const key = "ABCDEFGHIJKLMNOPQRSTUVWXYZ";
   
     return text
       .toUpperCase()
@@ -20,9 +20,10 @@ export function polyalphabeticCipherEncrypt(text: string, key: string): string {
       .join('');
   }
   
-  export function polyalphabeticCipherDecrypt(encryptedText: string, key: string): string {
+  export function polyalphabeticCipherDecrypt(encryptedText: string): string {
+
     const alphabet = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ';
-    key = key.toUpperCase();
+    const key = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ';
   
     return encryptedText
       .toUpperCase()
@@ -35,14 +36,3 @@ export function polyalphabeticCipherEncrypt(text: string, key: string): string {
       })
       .join('');
   }
-  
-  // Example Usage
-  // const text = "HELLO WORLD";
-  // const key = "KEY";
-  
-  // const encrypted = polyalphabeticCipherEncrypt(text, key);
-  // console.log("Encrypted:", encrypted); // Example: "RIJVS UYVJN"
-  
-  // const decrypted = polyalphabeticCipherDecrypt(encrypted, key);
-  // console.log("Decrypted:", decrypted); // Expected: "HELLO WORLD"
-  

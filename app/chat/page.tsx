@@ -2,21 +2,21 @@
 
 import React, { useState, useEffect, useRef } from 'react';
 import crypto from 'crypto';
-import { aesEncrypt, aesDecrypt } from '../../algorithms/aes-encrypt'; 
-import { caesarCipher, caesarDecipher } from '../../algorithms/caesar_cipher'; 
-import { columnarEncrypt, columnarDecrypt } from '../../algorithms/columnar_transposition'; 
-import { desEncrypt, desDecrypt } from '../../algorithms/des'; 
+import { aesEncrypt, aesDecrypt } from '../algorithms/aes/aes-encrypt'; 
+import { caesarCipher, caesarDecipher } from '../algorithms/caesar/caesar_cipher'; 
+import { columnarEncrypt, columnarDecrypt } from '../algorithms/columnar_transposition'; 
+import { desEncrypt, desDecrypt } from '../algorithms/des'; 
 // import { generateDiffieHellmanKeys } from '../../algorithms/diffie_hellman'; 
 // import { dsaSignMessage, dsaVerifyMessage } from '../../algorithms/dsa'; 
-// import { encryptWithPublicKey, decryptWithPrivateKey } from '../../algorithms/ecc'; 
-import { sha256Hash } from '../../algorithms/hash_SHA'; 
-import { hillCipherEncrypt, hillCipherDecrypt } from '../../algorithms/hill'; 
-import { monoalphabeticCipher, monoalphabeticDecrypt } from '../../algorithms/monoalphabetic'; 
-import { otpEncrypt, otpDecrypt } from '../../algorithms/one_time_pad'; 
-import { playfairEncrypt, playfairDecrypt } from '../../algorithms/playfair'; 
-import { polyalphabeticCipherEncrypt, polyalphabeticCipherDecrypt } from '../../algorithms/polyalphabetic'; 
-import { railFenceEncrypt, railFenceDecrypt } from '../../algorithms/rail_fence'; 
-import { rc4Encrypt, rc4Decrypt } from '../../algorithms/rc4'; 
+import { encryptWithPublicKey, decryptWithPrivateKey } from '../algorithms/ecc'; 
+import { sha256Hash } from '../algorithms/hash_SHA'; 
+import { hillCipherEncrypt, hillCipherDecrypt } from '../algorithms/hill'; 
+import { monoalphabeticCipher, monoalphabeticDecrypt } from '../algorithms/monoalphabetic/monoalphabetic'; 
+import { otpEncrypt, otpDecrypt } from '../algorithms/one_time_pad'; 
+import { playfairEncrypt, playfairDecrypt } from '../algorithms/playfair/playfair'; 
+import { polyalphabeticCipherEncrypt, polyalphabeticCipherDecrypt } from '../algorithms/polyalphabetic/polyalphabetic'; 
+import { railFenceEncrypt, railFenceDecrypt } from '../algorithms/rail_fence'; 
+import { rc4Encrypt, rc4Decrypt } from '../algorithms/rc4'; 
 // import { rsaEncrypt, rsaDecrypt } from '../../algorithms/rsa'; 
 
 import { ToastContainer, toast } from 'react-toastify';
@@ -57,6 +57,8 @@ const ChatApp = () => {
         return isEncrypt ? columnarEncrypt(message, 'KEY') : columnarDecrypt(message, 'KEY');
       case 'desEncrypt':
         return isEncrypt ? desEncrypt(message, aesKey.toString('base64')) : desDecrypt(message, aesKey.toString('base64'));
+      case 'ecc':
+        return isEncrypt ? encryptWithPublicKey(message) : decryptWithPrivateKey(message);
       case 'sha256Hash':
         return sha256Hash(message);
       case 'hillCipherEncrypt':
@@ -131,8 +133,10 @@ const ChatApp = () => {
 
   
     // Function to handle file input change
-    const handleFileChange = (event: any ) => {
-      const file = event.target.files[0];
+    const handleFileChange = (event: React.ChangeEvent<HTMLInputElement>) => {
+      const files = event.target.files;
+      if (!files) return;
+      const file = files[0];
       if (file) {
         const reader = new FileReader();
         reader.onloadend = () => {
@@ -212,22 +216,22 @@ const ChatApp = () => {
                 className="p-2 text-xs w-32  rounded-lg border border-gray-300 focus:ring-2 focus:ring-blue-500"
               >
                 <option value="">Select Encryption</option>
-                <option value="aesEncrypt">AES</option>
+                {/* <option value="aesEncrypt">AES</option> */}
                 <option value="caesarCipher">Caesar Cipher</option>
                 <option value="columnarEncrypt">Columnar</option>
-                <option value="desEncrypt">DES</option>
-                <option value="generateDiffieHellmanKeys">Generate Diffie Hellman Keys</option>
-                <option value="dsaSignMessage">DSA</option>
-                <option value="encryptWithPublicKey">ECC</option>
+                {/* <option value="desEncrypt">DES</option> */}
+                {/* <option value="generateDiffieHellmanKeys">Generate Diffie Hellman Keys</option> */}
+                {/* <option value="dsaSignMessage">DSA</option> */}
+                <option value="ecc">ECC</option>
                 <option value="sha256Hash">SHA256 Hash</option>
                 <option value="hillCipherEncrypt">Hill Cipher</option>
                 <option value="monoalphabeticCipher">Mono-Alphabetic Cipher</option>
                 <option value="otpEncrypt">OTP</option>
                 <option value="playfairEncrypt">Playfair</option>
-                <option value="polyalphabeticCipherEncrypt">Polyalphabetic Cipher</option>
+                {/* <option value="polyalphabeticCipherEncrypt">Polyalphabetic Cipher</option> */}
                 <option value="railFenceEncrypt">Rail Fence</option>
-                <option value="rc4Encrypt">RC4</option>
-                <option value="rsaEncrypt">RSA</option>
+                {/* <option value="rc4Encrypt">RC4</option> */}
+                {/* <option value="rsaEncrypt">RSA</option> */}
               </select>
               <button
                 onClick={() => handleSendMessage('User 1', user1Message, user1Option, true)}
@@ -283,22 +287,22 @@ const ChatApp = () => {
                 className="p-2 text-xs w-32  rounded-lg border border-gray-300 focus:ring-2 focus:ring-green-500"
               >
                 <option value="">Select Decryption</option>
-                <option value="aesEncrypt">AES</option>
+                {/* <option value="aesEncrypt">AES</option> */}
                 <option value="caesarCipher">Caesar Cipher</option>
                 <option value="columnarEncrypt">Columnar</option>
-                <option value="desEncrypt">DES</option>
-                <option value="generateDiffieHellmanKeys">Generate Diffie Hellman Keys</option>
-                <option value="dsaSignMessage">DSA</option>
+                {/* <option value="desEncrypt">DES</option> */}
+                {/* <option value="generateDiffieHellmanKeys">Generate Diffie Hellman Keys</option> */}
+                {/* <option value="dsaSignMessage">DSA</option> */}
                 <option value="encryptWithPublicKey">ECC</option>
                 <option value="sha256Hash">SHA256 Hash</option>
                 <option value="hillCipherEncrypt">Hill Cipher</option>
                 <option value="monoalphabeticCipher">Mono-Alphabetic Cipher</option>
                 <option value="otpEncrypt">OTP</option>
                 <option value="playfairEncrypt">Playfair</option>
-                <option value="polyalphabeticCipherEncrypt">Polyalphabetic Cipher</option>
+                {/* <option value="polyalphabeticCipherEncrypt">Polyalphabetic Cipher</option> */}
                 <option value="railFenceEncrypt">Rail Fence</option>
-                <option value="rc4Encrypt">RC4</option>
-                <option value="rsaEncrypt">RSA</option>
+                {/* <option value="rc4Encrypt">RC4</option> */}
+                {/* <option value="rsaEncrypt">RSA</option> */}
               </select>
               <button
                 onClick={() => handleDecryption('User 2', user2Message, user2Option, messages[messages.length - 1]?.encryptionMethod || '')}
