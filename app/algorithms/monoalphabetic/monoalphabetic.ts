@@ -17,16 +17,3 @@ export function monoalphabeticDecrypt(str: string, key: number): string {
         return String.fromCharCode(start + (char.charCodeAt(0) - start - key + 26) % 26); // Reverse key
     });
 }
-
-// Example usage
-// const plaintext = "HELLO WORLD";
-// const key = 3;
-
-// const encryptedMessage = monoalphabetic(plaintext, key);
-// console.log("Encrypted Message:", encryptedMessage); // Encrypted message
-
-// const decryptedMessage = caesarDecipher(encryptedMessage, key);
-// console.log("Decrypted Message:", decryptedMessage); // Decrypted message
-
-
-// console.log(monoalphabetic("HELLO", 3)); // KHOOR

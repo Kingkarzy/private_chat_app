@@ -2,7 +2,7 @@
 
 import React, { useState, useRef } from 'react';
 import { monoalphabeticCipher, monoalphabeticDecrypt } from './monoalphabetic';
-import { ToastContainer } from 'react-toastify';
+import { toast, ToastContainer } from 'react-toastify';
 import Image from 'next/image';
 import user1Avatar from '@/assets/user1.png';
 import user2Avatar from '@/assets/user2.png';
@@ -42,8 +42,8 @@ const Monoalphabetic = () => {
   };
 
   return (
-    <div className='min-h-screen max-h-screen bg-gradient-to-r from-indigo-500 via-purple-400 to-pink-600'>
-      <ToastContainer position='top-right' autoClose={3000} theme='dark' />
+    <div className='min-h-screen max-h-full  bg-gradient-to-r from-indigo-500 via-purple-400 to-pink-600'>
+      <ToastContainer position='top-right' autoClose={3000} theme='dark' limit={1}/>
       <h1 className='text-4xl py-2 font-bold text-center'>Chat Encrypt/Decrypt Application</h1>
       <div className='p-4 flex justify-center items-center'>
         <div className='grid grid-cols-2 gap-4 w-full max-w-6xl'>
@@ -57,7 +57,7 @@ const Monoalphabetic = () => {
               <div className='flex flex-col space-y-4 h-[60vh] overflow-y-auto'>
                 {messages.map((message, index) => (
                   <div key={index} className={`flex flex-col ${message.sender === user ? 'items-end' : ''}`}>
-                    <div className={`w-fit max-w-sm h-fit p-3 rounded-lg bg-${message.sender === user ? color : 'blue'}-500 text-white shadow-md`}>
+                    <div className={`w-fit max-w-sm h-fit p-3 rounded-lg bg-${message.sender === user ? color : (color === 'blue' ? 'green' : 'blue')}-500 text-white shadow-md`}>
                       <p className='break-words'>{message.text}</p>
                     </div>
                     <small>{message.timestamp}</small>
@@ -71,13 +71,22 @@ const Monoalphabetic = () => {
                   className='w-full p-3 rounded-lg border border-gray-300 focus:ring-2 focus:ring-blue-500'
                   placeholder={`Type a ${isEncrypt ? 'plaintext' : 'ciphertext'}...`}
                   value={userMessage[user]}
-                  onChange={(e) => setUserMessage((prev) => ({ ...prev, [user]: e.target.value }))}
+                   onChange={(e) => {
+                    const newValue = e.target.value;
+
+                    // Check if the new value contains numbers
+                    if (/\d/.test(newValue)) {
+                      toast.error('Numbers are not encrypted!');
+                    } else {
+                      setUserMessage((prev) => ({ ...prev, [user]: newValue }));
+                    }
+                  }}
                   onKeyDown={(e) => handleKeyDown(e, user, userMessage[user], isEncrypt)}
                 />
                 <input
                   type='number'
-                  className='w-20 p-3 rounded-lg border border-gray-300 focus:ring-2 focus:ring-blue-500'
-                  placeholder='key value...'
+                  className='w-40 text-sm p-3 rounded-lg border border-gray-300 focus:ring-2 focus:ring-blue-500'
+                  placeholder='key value'
                   value={keyValue}
                   max={25}
                   min={1}

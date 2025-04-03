@@ -9,7 +9,7 @@
     "lint": "next lint"
   },
   "dependencies": {
-    "elliptic": "^6.6.1",
+    "big-integer": "^1.6.52",
     "next": "15.1.6",
     "react": "^19.0.0",
     "react-dom": "^19.0.0",

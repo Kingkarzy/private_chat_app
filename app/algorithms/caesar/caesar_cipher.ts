@@ -17,16 +17,3 @@ export function caesarDecipher(str: string, shift: number): string {
         return String.fromCharCode(start + (char.charCodeAt(0) - start - shift + 26) % 26); // Reverse shift
     });
 }
-
-// Example usage
-// const plaintext = "HELLO WORLD";
-// const shift = 3;
-
-// const encryptedMessage = caesarCipher(plaintext, shift);
-// console.log("Encrypted Message:", encryptedMessage); // Encrypted message
-
-// const decryptedMessage = caesarDecipher(encryptedMessage, shift);
-// console.log("Decrypted Message:", decryptedMessage); // Decrypted message
-
-
-// console.log(caesarCipher("HELLO", 3)); // KHOOR

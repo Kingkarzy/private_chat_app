@@ -1,3 +1,17 @@
+/** 
+ * 
+ *  Write letters of the message out in rows over a specified number of columns
+
+    • Reorder the columns according to the same of the key before reading off the rows
+using the xample below :
+ 
+       Key: 4 3 1 2 5 6 7
+ Plaintext: a t t a c k p
+            o s t p o n e
+            d u n t i l t
+            w o a m x y z   
+*/
+
 export function columnarEncrypt(text: string, key: string): string {
   const columns: string[][] = Array.from({ length: key.length }, () => []);
 
@@ -50,17 +64,3 @@ export function columnarDecrypt(encryptedText: string, key: string): string {
 
   return decryptedText;
 }
-
-// Example usage
-// const plaintext = "HELLO COLUMNAR";
-// const key = "KEY";
-
-// const encryptedMessage = columnarEncrypt(plaintext, key);
-// console.log("Encrypted Message:", encryptedMessage); // Encrypted message
-
-// const decryptedMessage = columnarDecrypt(encryptedMessage, key);
-// console.log("Decrypted Message:", decryptedMessage); // Decrypted message
-
-  
-  // console.log(columnarEncrypt("HELLO", "KEY")); // Expected: "LOEHL"
-  

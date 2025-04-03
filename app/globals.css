@@ -17,5 +17,20 @@
 body {
   color: var(--background);
   background: var(--foreground);
-  font-family: Arial, Helvetica, sans-serif;
+  font-family: Roboto, Arial, Helvetica, sans-serif;
+}
+.customBg0 {
+  background: url(../assets/background0.jpg);
+  /* background-repeat: no-repeat; */
+  background-attachment: fixed;
+  background-position: center; 
+}
+
+.customBg1 {
+  color: var(--foreground);
+  background: url(../assets/background1.png);
+  background-repeat: no-repeat;
+  /* background-attachment: fixed; */
+  background-position: top; 
+  background-size:contain;
 }

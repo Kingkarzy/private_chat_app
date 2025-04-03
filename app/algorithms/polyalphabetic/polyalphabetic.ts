@@ -2,6 +2,8 @@
  * A substitution cipher that uses multiple 
  * substitution alphabets to encrypt the plaintext.
  * 
+ * iN THIS LAB I USED A FIXED KEY AND ALPHABETIC TABLE AS REPRESENTED IN THE CLASS SLIDES TO ENCRYPT AND DECRYPT THE TEXT
+ * 
  */
 
 export function polyalphabeticCipherEncrypt(text: string): string {
